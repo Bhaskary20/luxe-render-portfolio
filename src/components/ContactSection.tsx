@@ -142,14 +142,16 @@ const ContactSection = () => {
               transition={{ delay: 0.8 }}
               className="pt-8"
             >
-              <motion.button
+              <motion.a
+                href="/resume.pdf"
+                download="Aachal_Resume.pdf"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="btn-outline-elegant flex items-center space-x-2 w-full lg:w-auto justify-center"
               >
                 <Download size={18} />
                 <span>Download Resume</span>
-              </motion.button>
+              </motion.a>
             </motion.div>
           </motion.div>
 

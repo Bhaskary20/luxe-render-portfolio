@@ -1,7 +1,7 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { ExternalLink, Eye, X } from 'lucide-react';
-import masterBedroomImage from '../assets/master-bedroom.jpg';
+import masterBedroomImage from '../assets/masterbrdroom r-1.png';
 import modularKitchenImage from '../assets/modular-kitchen.jpg';
 import residentialDesignImage from '../assets/residential-design.jpg';
 
@@ -13,6 +13,7 @@ interface Project {
   fullDescription: string;
   image: string;
   technologies: string[];
+  pdfUrl?: string;
 }
 
 const ProjectsSection = () => {
@@ -23,12 +24,13 @@ const ProjectsSection = () => {
   const projects: Project[] = [
     {
       id: 1,
-      title: 'Master Bedroom with Attached Bath & Toilet',
+      title: 'Master Bedroom',
       category: 'Residential Design',
       description: 'Comprehensive master bedroom design with ensuite bathroom featuring modern layouts and premium finishes.',
       fullDescription: 'A sophisticated master bedroom design project featuring efficient space planning and luxurious materials. The project includes detailed technical drawings, 3D visualizations, and precise material specifications. The ensuite bathroom incorporates optimal lighting solutions and ergonomic design principles for maximum comfort and functionality.',
       image: masterBedroomImage,
-      technologies: ['AutoCAD', 'SketchUp', 'V-Ray', 'Material Selection']
+      technologies: ['AutoCAD', 'SketchUp', 'V-Ray', 'Material Selection', 'Enscape'],
+      pdfUrl: '/master-bedroom-project.pdf'
     },
     {
       id: 2,
@@ -37,7 +39,8 @@ const ProjectsSection = () => {
       description: 'Efficient modular kitchen design optimizing workflow and storage while maximizing space utilization.',
       fullDescription: 'Complete modular kitchen design focusing on workflow efficiency and storage optimization. The project includes detailed cabinet layouts, appliance placement, and material selection. Special attention was given to ergonomic principles and modern cooking requirements while maintaining aesthetic appeal.',
       image: modularKitchenImage,
-      technologies: ['AutoCAD', 'SketchUp', 'Space Planning', 'Ergonomic Design']
+      technologies: ['AutoCAD', 'SketchUp', 'Space Planning', 'Ergonomic Design'],
+      pdfUrl: '/modular-kitchen-project.pdf'
     },
     {
       id: 3,
@@ -46,7 +49,8 @@ const ProjectsSection = () => {
       description: 'Complete residential design package including all technical drawings and design specifications.',
       fullDescription: 'A comprehensive residential design project delivering complete design documentation. The project encompasses space planning, material palettes, furniture specifications, and detailed technical drawings. This full-service approach ensures seamless project execution and client satisfaction.',
       image: residentialDesignImage,
-      technologies: ['AutoCAD', 'Technical Documentation', 'Material Palettes', 'Project Management']
+      technologies: ['AutoCAD', 'Technical Documentation', 'Material Palettes', 'Project Management'],
+      pdfUrl: '/residential-design-project.pdf'
     }
   ];
 
@@ -168,14 +172,27 @@ const ProjectsSection = () => {
                 </div>
                 
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="btn-hero flex items-center justify-center space-x-2"
-                  >
-                    <ExternalLink size={20} />
-                    <span>View Full Project</span>
-                  </motion.button>
+                  {selectedProject.pdfUrl ? (
+                    <motion.a
+                      href={selectedProject.pdfUrl}
+                      download={`${selectedProject.title.replace(/\s+/g, '_')}_Project.pdf`}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="btn-hero flex items-center justify-center space-x-2"
+                    >
+                      <ExternalLink size={20} />
+                      <span>View Full Project</span>
+                    </motion.a>
+                  ) : (
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="btn-hero flex items-center justify-center space-x-2"
+                    >
+                      <ExternalLink size={20} />
+                      <span>View Full Project</span>
+                    </motion.button>
+                  )}
                 </div>
               </div>
             </motion.div>
