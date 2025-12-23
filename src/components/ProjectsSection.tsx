@@ -20,6 +20,19 @@ const ProjectsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [showGallery, setShowGallery] = useState(false);
+
+  const residentialImages = [
+    '/F1.png',
+    '/K-1.jpg',
+    '/LV 1.png',
+    '/LV2.png',
+    '/LV3.png',
+    '/view 2.png',
+    '/view 3 .png',
+    '/WhatsApp Image 2025-12-23 at 23.47.23.jpeg',
+    '/WhatsApp Image 2025-12-23 at 23.47.23 (1).jpeg'
+  ];
 
   const projects: Project[] = [
     {
@@ -40,7 +53,7 @@ const ProjectsSection = () => {
       fullDescription: 'Complete modular kitchen design focusing on workflow efficiency and storage optimization. The project includes detailed cabinet layouts, appliance placement, and material selection. Special attention was given to ergonomic principles and modern cooking requirements while maintaining aesthetic appeal.',
       image: modularKitchenImage,
       technologies: ['AutoCAD', 'SketchUp', 'Space Planning', 'Ergonomic Design'],
-      pdfUrl: '/modular-kitchen-project.pdf'
+      pdfUrl: '/modular-kitchen-plan.pdf'
     },
     {
       id: 3,
@@ -172,7 +185,17 @@ const ProjectsSection = () => {
                 </div>
                 
                 <div className="flex flex-col sm:flex-row gap-4">
-                  {selectedProject.pdfUrl ? (
+                  {selectedProject.id === 3 ? (
+                    <motion.button
+                      onClick={() => setShowGallery(true)}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="btn-hero flex items-center justify-center space-x-2"
+                    >
+                      <Eye size={20} />
+                      <span>View Full Project</span>
+                    </motion.button>
+                  ) : selectedProject.pdfUrl ? (
                     <motion.a
                       href={selectedProject.pdfUrl}
                       download={`${selectedProject.title.replace(/\s+/g, '_')}_Project.pdf`}
@@ -193,6 +216,50 @@ const ProjectsSection = () => {
                       <span>View Full Project</span>
                     </motion.button>
                   )}
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {/* Gallery Modal */}
+        {showGallery && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-primary/80 backdrop-blur-md z-50 flex items-center justify-center p-4"
+            onClick={() => setShowGallery(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-card rounded-2xl max-w-6xl w-full max-h-[90vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="relative p-8">
+                <button
+                  onClick={() => setShowGallery(false)}
+                  className="absolute top-4 right-4 bg-card text-foreground p-2 rounded-full hover:bg-surface transition-colors z-10"
+                >
+                  <X size={20} />
+                </button>
+                <h3 className="font-playfair text-2xl lg:text-3xl font-bold text-primary mb-6 text-center">
+                  Residential Design Photos
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {residentialImages.map((img, index) => (
+                    <motion.img
+                      key={index}
+                      src={img}
+                      alt={`Residential Design ${index + 1}`}
+                      className="w-full h-64 object-cover rounded-lg shadow-soft hover:shadow-medium transition-shadow duration-300"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: index * 0.1 }}
+                    />
+                  ))}
                 </div>
               </div>
             </motion.div>

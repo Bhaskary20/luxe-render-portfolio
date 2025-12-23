@@ -8,7 +8,7 @@ const AboutSection = () => {
 
   const stats = [
     { icon: Award, label: 'Years Experience', value: '3+' },
-    { icon: Users, label: 'Happy Clients', value: '50+' },
+    { icon: Users, label: 'Happy Clients', value: '20+' },
     { icon: Clock, label: 'Projects Completed', value: '15+' },
     { icon: Star, label: 'Client Satisfaction', value: '9.8/10' },
   ];

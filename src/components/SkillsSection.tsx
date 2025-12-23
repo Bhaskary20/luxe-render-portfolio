@@ -15,7 +15,7 @@ const SkillsSection = () => {
         { name: 'SketchUp', level: 90 },
         { name: 'V-Ray', level: 85 },
         { name: 'Photoshop', level: 88 },
-        { name: 'CorelDRAW', level: 82 },
+        { name: 'Enscape', level: 82 },
       ]
     },
     {
