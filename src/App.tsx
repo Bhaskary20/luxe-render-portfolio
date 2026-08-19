@@ -1,27 +1,27 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
-
-const queryClient = new QueryClient();
+import { BrowserRouter } from "react-router-dom";
+import { AppProviders } from "@/app/providers";
+import { AnimatedRoutes } from "@/app/routes";
+import { Grain } from "@/components/layout/Grain";
+import { ScrollProgress } from "@/components/layout/ScrollProgress";
+import { CursorProvider } from "@/components/layout/Cursor";
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <AppProviders>
+    <BrowserRouter>
+      <CursorProvider>
+        <a
+          href="#main-content"
+          className="fixed left-4 top-4 z-[100] -translate-y-24 rounded-full px-5 py-3 font-body text-sm font-medium transition-transform focus:translate-y-0"
+          style={{ backgroundColor: "#F2EEE7", color: "#0E0D0C" }}
+        >
+          Skip to content
+        </a>
+        <ScrollProgress />
+        <Grain />
+        <AnimatedRoutes />
+      </CursorProvider>
+    </BrowserRouter>
+  </AppProviders>
 );
 
 export default App;

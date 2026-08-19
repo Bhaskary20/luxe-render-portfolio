@@ -1,0 +1,69 @@
+/* ============================================================
+   ATELIER design tokens.
+   Sections alternate between two lighting states — [data-theme="ink"]
+   (cinematic, near-black) and [data-theme="bone"] (warm editorial paper).
+   Clay is the only accent that survives into the light theme; brass,
+   sage and blueprint are tuned per-theme so small text stays AA-safe.
+   ============================================================ */
+
+:root {
+  /* ---- global accents (theme-independent hue anchors) ---- */
+  --color-clay: 17 38% 53%;
+  --color-brass: 37 47% 59%;
+  --color-sage: 108 7% 45%;
+  --color-blueprint: 209 20% 57%;
+
+  /* ---- motion ---- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.83, 0, 0.17, 1);
+  --duration-micro: 200ms;
+  --duration-standard: 600ms;
+  --duration-cinematic: 1200ms;
+
+  /* ---- layout ---- */
+  --container-max: 1560px;
+  --gutter: clamp(1.25rem, 4vw, 5rem);
+  --section-pad: clamp(6rem, 14vh, 14rem);
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+}
+
+/* ---------------- Ink (cinematic, dark) ---------------- */
+[data-theme="ink"] {
+  --color-bg: 30 8% 5%;
+  --color-surface: 40 8% 8%;
+  --color-surface-raised: 24 10% 10%;
+  --color-fg: 38 30% 93%;
+  --color-fg-muted: 32 8% 63%;
+  --color-border: 30 8% 15%;
+
+  --color-accent: var(--color-clay);
+  --color-accent-text: var(--color-clay);
+  --color-brass-text: var(--color-brass);
+  --color-sage-text: var(--color-sage);
+  --color-blueprint-text: var(--color-blueprint);
+  --color-destructive: 12 72% 59%;
+
+  color-scheme: dark;
+}
+
+/* ---------------- Bone (editorial, light) ---------------- */
+[data-theme="bone"] {
+  --color-bg: 38 31% 93%;
+  --color-surface: 40 43% 97%;
+  --color-surface-raised: 0 0% 100%;
+  --color-fg: 30 14% 11%;
+  --color-fg-muted: 35 10% 32%;
+  --color-border: 38 24% 82%;
+
+  --color-accent: var(--color-clay);
+  /* darkened AA-safe variants for small text on light paper */
+  --color-accent-text: 18 41% 42%;
+  --color-brass-text: 32 45% 38%;
+  --color-sage-text: 113 8% 38%;
+  --color-blueprint-text: 209 25% 42%;
+  --color-destructive: 9 60% 41%;
+
+  color-scheme: light;
+}

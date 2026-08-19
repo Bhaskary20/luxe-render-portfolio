@@ -1,198 +1,102 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "./styles/tokens.css";
+@import "./styles/typography.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Dark Portfolio Design System for Interior Designer */
-
-@layer base {
-  :root {
-    /* Dark Core Background & Text */
-    --background: 220 25% 8%;
-    --foreground: 0 0% 95%;
-
-    /* Card & Surface Colors */
-    --card: 220 20% 12%;
-    --card-foreground: 0 0% 95%;
-    --surface: 220 15% 10%;
-    --surface-muted: 220 12% 14%;
-
-    /* Sophisticated Primary Colors */
-    --primary: 0 0% 95%;
-    --primary-foreground: 220 25% 8%;
-    --primary-light: 0 0% 85%;
-    --primary-lighter: 220 10% 20%;
-
-    /* Elegant Secondary Colors */
-    --secondary: 220 15% 16%;
-    --secondary-foreground: 0 0% 95%;
-    --secondary-dark: 220 20% 12%;
-
-    /* Elegant Accent - Cool Blue */
-    --accent: 210 95% 70%;
-    --accent-foreground: 220 25% 8%;
-    --accent-muted: 210 50% 25%;
-    --accent-dark: 210 95% 60%;
-
-    /* Muted Text Colors */
-    --muted: 220 15% 16%;
-    --muted-foreground: 0 0% 65%;
-    --text-soft: 0 0% 75%;
-
-    /* Interactive States */
-    --destructive: 0 70% 55%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 220 15% 18%;
-    --input: 220 15% 16%;
-    --ring: 210 95% 70%;
-
-    /* Premium Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(220 30% 5%) 0%, hsl(220 25% 8%) 25%, hsl(225 20% 12%) 75%, hsl(210 40% 15%) 100%);
-    --gradient-hero-overlay: linear-gradient(135deg, hsl(220 50% 5% / 0.9) 0%, hsl(225 30% 8% / 0.8) 50%, hsl(210 60% 12% / 0.7) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(210 95% 70%) 0%, hsl(210 95% 60%) 100%);
-    --gradient-surface: linear-gradient(180deg, hsl(220 20% 12%) 0%, hsl(220 15% 10%) 100%);
-    --gradient-premium: radial-gradient(ellipse at top, hsl(210 70% 25% / 0.3) 0%, transparent 50%), linear-gradient(135deg, hsl(220 40% 5%) 0%, hsl(225 35% 8%) 100%);
-
-    /* Shadows */
-    --shadow-soft: 0 2px 20px hsla(220 25% 5% / 0.3);
-    --shadow-medium: 0 8px 40px hsla(220 25% 5% / 0.4);
-    --shadow-strong: 0 20px 60px hsla(220 25% 5% / 0.5);
-    --shadow-accent: 0 8px 32px hsla(210 95% 70% / 0.25);
-
-    /* Animation Variables */
-    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    --transition-spring: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 220 20% 12%;
-    --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 210 95% 70%;
-    --sidebar-primary-foreground: 220 25% 8%;
-    --sidebar-accent: 220 15% 16%;
-    --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 220 15% 18%;
-    --sidebar-ring: 210 95% 70%;
-  }
-}
 
 @layer base {
   * {
     @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground font-inter;
-    scroll-behavior: smooth;
-  }
-
-  /* Typography */
-  .font-playfair {
-    font-family: 'Playfair Display', serif;
-  }
-
-  .font-inter {
-    font-family: 'Inter', sans-serif;
-  }
-
-  /* Smooth animations */
-  .animate-fade-in {
-    animation: fadeIn 0.8s ease-out forwards;
-  }
-
-  .animate-slide-up {
-    animation: slideUp 0.8s ease-out forwards;
-  }
-
-  .animate-scale-in {
-    animation: scaleIn 0.6s ease-out forwards;
-  }
-
-  /* Hover effects */
-  .hover-lift {
-    transition: var(--transition-smooth);
-  }
-
-  .hover-lift:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-strong);
-  }
-
-  .hover-glow:hover {
-    box-shadow: var(--shadow-accent);
-  }
-
-  /* Parallax container */
-  .parallax-container {
+  html {
+    scroll-behavior: auto; /* Lenis owns smooth scroll; native smooth would double up */
     overflow-x: hidden;
+  }
+
+  body {
+    @apply bg-bg text-fg font-body antialiased;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden; /* w-screen panels (Works) can exceed 100% when a scrollbar eats into 100vw */
+  }
+
+  ::selection {
+    background: hsl(var(--color-accent) / 0.28);
+    color: hsl(var(--color-fg));
+  }
+
+  :focus-visible {
+    outline: 2px solid hsl(var(--color-accent));
+    outline-offset: 3px;
   }
 }
 
 @layer components {
-  /* Custom button variants */
-  .btn-hero {
-    @apply bg-gradient-to-r from-accent to-accent-dark text-accent-foreground 
-           px-8 py-4 rounded-full font-medium text-lg
-           hover:shadow-accent hover:scale-105 transition-all duration-300;
+  .container-atelier {
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
   }
 
-  .btn-outline-elegant {
-    @apply border-2 border-primary text-primary bg-transparent
-           hover:bg-primary hover:text-primary-foreground
-           px-6 py-3 rounded-full font-medium
-           transition-all duration-300;
+  .section-atelier {
+    padding-block: var(--section-pad);
   }
 
-  /* Section spacing */
-  .section-padding {
-    @apply py-20 lg:py-32;
+  .hairline {
+    background: hsl(var(--color-border));
+    height: 1px;
   }
 
-  .container-custom {
-    @apply max-w-7xl mx-auto px-6 lg:px-8;
+  .tag-mono {
+    @apply font-mono text-[11px] uppercase tracking-[0.18em];
   }
 
-  /* Glass effect */
-  .glass-effect {
-    @apply bg-card/80 backdrop-blur-md border border-border/50;
+  /* film grain — fixed, non-interactive, above everything */
+  .grain-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    pointer-events: none;
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+  }
+
+  /* column grid tell, ink sections only */
+  .draft-grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(
+      90deg,
+      hsl(var(--color-fg) / 0.05) 0,
+      hsl(var(--color-fg) / 0.05) 1px,
+      transparent 1px,
+      transparent calc(100% / 12)
+    );
   }
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .mask-reveal {
+    overflow: hidden;
+    display: block;
   }
 }
 
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(60px);
+/* Reduced motion: collapse everything to instant/near-instant */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Smooth scroll for anchor links */
-html {
-  scroll-behavior: smooth;
 }

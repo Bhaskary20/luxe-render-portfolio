@@ -1,27 +1,29 @@
-import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { useLocation, Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import { ArrowLeft } from "lucide-react";
 
-const NotFound = () => {
+export default function NotFound() {
   const location = useLocation();
 
   useEffect(() => {
-    console.error(
-      "404 Error: User attempted to access non-existent route:",
-      location.pathname
-    );
+    console.error("404: attempted to access non-existent route:", location.pathname);
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">404</h1>
-        <p className="text-xl text-gray-600 mb-4">Oops! Page not found</p>
-        <a href="/" className="text-blue-500 hover:text-blue-700 underline">
-          Return to Home
-        </a>
-      </div>
+    <div data-theme="ink" className="flex min-h-screen flex-col items-center justify-center bg-bg px-6 text-center">
+      <Helmet>
+        <title>Page not found — Aachal Rannaware</title>
+      </Helmet>
+      <p className="tag-mono mb-6 text-fg-muted">SHEET NOT FOUND</p>
+      <h1 className="font-display text-[18vw] font-medium leading-none text-fg sm:text-[10rem]">404</h1>
+      <p className="mt-6 max-w-sm text-fg-muted">This drawing doesn&apos;t exist in the set. Let&apos;s get you back to the plan.</p>
+      <Link
+        to="/"
+        className="tag-mono mt-10 inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-fg transition-colors hover:border-accent hover:text-accent-text"
+      >
+        <ArrowLeft size={14} /> Back home
+      </Link>
     </div>
   );
-};
-
-export default NotFound;
+}
