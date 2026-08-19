@@ -9,6 +9,7 @@ import { useCursorHover } from "@/components/layout/Cursor";
 import { useScrollLockedSteps } from "@/hooks/useScrollLockedSteps";
 import { getLenis } from "@/hooks/useLenis";
 import { cn } from "@/lib/utils";
+import { StepArrows } from "@/components/ui/StepArrows";
 
 const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const;
 const PANEL_COUNT = projects.length + 1; // + closing CTA panel
@@ -81,7 +82,7 @@ function ClosingPanel() {
 }
 
 function DesktopWorks() {
-  const { sectionRef, active } = useScrollLockedSteps({ count: PANEL_COUNT });
+  const { sectionRef, active, next, prev, isFirst, isLast } = useScrollLockedSteps({ count: PANEL_COUNT });
 
   return (
     <div ref={sectionRef} className="relative h-[100svh] overflow-hidden">
@@ -95,6 +96,8 @@ function DesktopWorks() {
         ))}
         <ClosingPanel />
       </motion.div>
+
+      <StepArrows onPrev={prev} onNext={next} isFirst={isFirst} isLast={isLast} />
 
       <div className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 gap-2" aria-hidden="true">
         {Array.from({ length: PANEL_COUNT }).map((_, i) => (

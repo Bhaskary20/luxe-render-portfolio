@@ -4,6 +4,7 @@ import { useIsDesktop } from "@/hooks/useMediaQuery";
 import { useReducedMotion } from "@/app/providers";
 import { useScrollLockedSteps } from "@/hooks/useScrollLockedSteps";
 import { cn } from "@/lib/utils";
+import { StepArrows } from "@/components/ui/StepArrows";
 
 const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const;
 const draw = { pathLength: 1, opacity: 1 };
@@ -120,7 +121,7 @@ function StepVisual({ index }: { index: number }) {
 }
 
 function DesktopProcess() {
-  const { sectionRef, active } = useScrollLockedSteps({ count: processSteps.length });
+  const { sectionRef, active, next, prev, isFirst, isLast } = useScrollLockedSteps({ count: processSteps.length });
   const step = processSteps[active];
 
   return (
@@ -168,6 +169,8 @@ function DesktopProcess() {
           </AnimatePresence>
         </div>
       </div>
+
+      <StepArrows onPrev={prev} onNext={next} isFirst={isFirst} isLast={isLast} />
 
       <div className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 gap-2" aria-hidden="true">
         {processSteps.map((s, i) => (

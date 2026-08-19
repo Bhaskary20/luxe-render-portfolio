@@ -63,5 +63,21 @@ export function useScrollLockedSteps({ count, lockThreshold = 0.85, cooldownMs =
     return () => window.removeEventListener("wheel", onWheel, { capture: true });
   }, [locked, count, cooldownMs]);
 
-  return { sectionRef, active };
+  const step = (dir: 1 | -1) => {
+    if (coolingRef.current) return;
+    coolingRef.current = true;
+    setActive((i) => Math.min(count - 1, Math.max(0, i + dir)));
+    window.setTimeout(() => {
+      coolingRef.current = false;
+    }, cooldownMs);
+  };
+
+  return {
+    sectionRef,
+    active,
+    next: () => step(1),
+    prev: () => step(-1),
+    isFirst: active === 0,
+    isLast: active === count - 1,
+  };
 }
