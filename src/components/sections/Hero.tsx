@@ -152,7 +152,7 @@ export function Hero() {
 
         <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-8">
-            <h1 className="font-display font-medium uppercase leading-[0.92] text-fg" style={{ fontSize: "clamp(3.2rem, 11vw, 9.5rem)" }}>
+            <h1 className="whitespace-nowrap font-display font-medium uppercase leading-[0.92] text-fg" style={{ fontSize: "clamp(3.2rem, 9vw, 8.5rem)" }}>
               <SplitText className="block" by="char" delay={reduced ? 0 : 2.5} stagger={0.02}>
                 {profile.firstName}
               </SplitText>
